@@ -1,25 +1,25 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import LazyBgImage from './LazyBgImage';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [src, setSrc] = useState('https://picsum.photos/200/300');
+
+	useEffect(() => {
+		setInterval(function () {
+			const timestamp = new Date().getTime() / 1000;
+
+			setSrc(false); // Otherwise the image will not be updated
+
+			setSrc('https://picsum.photos/200/300?t' + timestamp);
+		}, 2000);
+	}, []);
+
+	return (
+		<div className="App">
+			<LazyBgImage src={src} />
+		</div>
+	);
 }
 
 export default App;
